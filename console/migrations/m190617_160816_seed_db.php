@@ -67,7 +67,7 @@ class m190617_160816_seed_db extends Migration
 
 
         // Airports
-        $airportCodes = array_rand(array_flip($this->all3SymbolVariants), 100);
+        $airportCodes = array_rand(array_flip($this->all3SymbolVariants), 15);
         foreach ($airportCodes as $airportCode) {
             $this->insert(
                 '{{%airports}}',

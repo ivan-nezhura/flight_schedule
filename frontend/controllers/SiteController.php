@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use yii\db\Query;
 use yii\helpers\Html;
 use yii\web\Controller;
 
@@ -29,6 +30,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->view->registerJsVar(
+            'airports',
+            (new Query())->from('{{%airports}}')->all()
+        );
+
         return $this->renderContent(Html::tag('div', '', ['id' => 'app-root']));
     }
 }
