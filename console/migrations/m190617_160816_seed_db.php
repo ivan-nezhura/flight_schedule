@@ -67,7 +67,7 @@ class m190617_160816_seed_db extends Migration
 
 
         // Airports
-        $airportCodes = array_rand(array_flip($this->all3SymbolVariants), 15);
+        $airportCodes = array_rand(array_flip($this->all3SymbolVariants), 6);
         foreach ($airportCodes as $airportCode) {
             $this->insert(
                 '{{%airports}}',
@@ -124,7 +124,7 @@ class m190617_160816_seed_db extends Migration
         }
 
 
-        // Flight Schedule
+        // Flight ScheduleController
         $startTime = strtotime('-3 days');
         $endTime = strtotime('+1 month');
 

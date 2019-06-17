@@ -35,16 +35,25 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'class' => \backend\components\ErrorHandler::class,
         ],
-        /*
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
+//            'enablePrettyUrl' => true,
+//            'enableStrictParsing' => true,
+//            'showScriptName' => false,
             'rules' => [
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'pluralize' => false,
+                    'controller' => 'schedule',
+                    'only' => ['search'],
+                    'extraPatterns' => [
+                        'GET search' => 'search',
+                        'OPTIONS search' => 'options',
+                    ],
+                ]
             ],
-        ],
-        */
+        ]
     ],
     'params' => $params,
 ];

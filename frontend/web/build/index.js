@@ -167,6 +167,8 @@ function (_React$Component) {
   }, {
     key: "fetchFlights",
     value: function fetchFlights() {
+      var _this3 = this;
+
       var _this$state = this.state,
           departureAirport = _this$state.departureAirport,
           arrivalAirport = _this$state.arrivalAirport,
@@ -177,32 +179,36 @@ function (_React$Component) {
       }
 
       var params = {
+        r: 'schedule/search',
+        expand: 'transporter',
         departureDate: departureDate,
         departureAirport: departureAirport,
         arrivalAirport: arrivalAirport
       };
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('http://127.0.0.1:21080/flights/search', {
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('http://127.0.0.1:21080/index.php?r=flight/search', {
         params: params
-      }).then(function (data) {
-        return console.log({
-          data: data
+      }).then(function (response) {
+        return _this3.setState({
+          errorText: '',
+          results: response.data.searchResults
         });
       })["catch"](function (err) {
-        return console.log({
-          err: err
+        return _this3.setState({
+          errorText: err.response.data.message,
+          results: []
         });
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var airports = this.props.airports;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AppForm__WEBPACK_IMPORTED_MODULE_4__["default"], _extends({
         airports: airports,
         onChange: function onChange(field, value) {
-          return _this3.onChangeSelection(field, value);
+          return _this4.onChangeSelection(field, value);
         }
       }, this.state)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AppResults__WEBPACK_IMPORTED_MODULE_5__["default"], this.state));
     }
@@ -342,9 +348,11 @@ var AppForm = function AppForm(_ref) {
     className: "text-danger text-center"
   }, errorText)), results.length > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
     xs: 12
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Table"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Departure"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Arrival"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Duration"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-    colSpan: 3
-  }, "TODO"))))));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Table"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Transporter"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Flight number"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Departure"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Arrival"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Duration"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, results.map(function (r) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+      key: r.flightNumber + r.departureDateTime
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, r.transporter.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, r.flightNumber), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, r.departureDateTime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, r.arrivalDateTime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, r.duration));
+  })))));
 };
 
 AppForm.propTypes = {

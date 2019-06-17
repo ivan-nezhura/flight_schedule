@@ -33,12 +33,18 @@ class AppContainer extends React.Component{
             return;
         }
 
-        const params = {departureDate, departureAirport, arrivalAirport};
+        const params = {
+            r: 'schedule/search',
+            expand: 'transporter',
+            departureDate,
+            departureAirport,
+            arrivalAirport
+        };
 
         axios
-            .get('http://127.0.0.1:21080/flights/search', {params})
-            .then(data => console.log({data}))
-            .catch(err => console.log({err}))
+            .get('http://127.0.0.1:21080/index.php?r=flight/search', {params})
+            .then(response => this.setState({errorText: '', results: response.data.searchResults}))
+            .catch(err => this.setState({errorText: err.response.data.message, results: []}))
     }
 
     render(){

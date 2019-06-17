@@ -13,15 +13,25 @@ const AppForm = ({errorText, results}) => (
                     <Table>
                         <thead>
                             <tr>
+                                <th>Transporter</th>
+                                <th>Flight number</th>
                                 <th>Departure</th>
                                 <th>Arrival</th>
                                 <th>Duration</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td colSpan={3}>TODO</td>
-                        </tr>
+                        {
+                            results.map(r => (
+                                <tr key={r.flightNumber + r.departureDateTime}>
+                                    <td>{r.transporter.name}</td>
+                                    <td>{r.flightNumber}</td>
+                                    <td>{r.departureDateTime}</td>
+                                    <td>{r.arrivalDateTime}</td>
+                                    <td>{r.duration}</td>
+                                </tr>
+                            ))
+                        }
                         </tbody>
                     </Table>
                 </Col>
