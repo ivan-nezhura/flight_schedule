@@ -11,6 +11,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'catchAll' => ['site/index'],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -35,6 +36,26 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js'=>[],
+                    'css' => []
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'js'=>[],
+                    'css' => []
+                ],
+                'yii\web\JqueryAsset' => [
+                    'js'=>[],
+                    'css' => []
+                ],
+                'yii\web\YiiAsset' => [
+                    'js'=>[],
+                    'css' => []
+                ],
+            ],
         ],
         /*
         'urlManager' => [
