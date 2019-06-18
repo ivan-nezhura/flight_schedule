@@ -173,20 +173,21 @@ function (_React$Component) {
           departureAirport = _this$state.departureAirport,
           arrivalAirport = _this$state.arrivalAirport,
           departureDate = _this$state.departureDate;
+      var auth = this.props.auth;
 
       if (!departureAirport || !arrivalAirport || !departureDate) {
         return;
       }
 
       var params = {
-        r: 'schedule/search',
         expand: 'transporter',
         departureDate: departureDate,
         departureAirport: departureAirport,
         arrivalAirport: arrivalAirport
       };
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('http://127.0.0.1:21080/v1/schedule/search', {
-        params: params
+        params: params,
+        auth: auth
       }).then(function (response) {
         return _this3.setState({
           errorText: '',
@@ -222,8 +223,13 @@ var airportShape = {
   name: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
   utc_offset: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
 };
+var authShape = {
+  username: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
+  password: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
+};
 AppContainer.propTypes = {
-  airports: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape(airportShape)).isRequired
+  airports: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape(airportShape)).isRequired,
+  auth: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape(authShape).isRequired
 };
 /* harmony default export */ __webpack_exports__["default"] = (AppContainer);
 
@@ -386,8 +392,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var username = prompt('Enter your username (for basic http auth):');
+var password = prompt('Enter your password (for basic http auth):');
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_AppContainer__WEBPACK_IMPORTED_MODULE_2__["default"], {
-  airports: window.airports
+  airports: window.airports,
+  auth: {
+    username: username,
+    password: password
+  }
 }), document.getElementById('app-root'));
 
 /***/ }),
@@ -71816,7 +71828,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/nezhura/www/flights/frontend/resources/js/index.js */"./frontend/resources/js/index.js");
+module.exports = __webpack_require__(/*! /home/kepar1k/projects/flights/frontend/resources/js/index.js */"./frontend/resources/js/index.js");
 
 
 /***/ })

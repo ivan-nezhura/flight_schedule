@@ -28,13 +28,13 @@ class AppContainer extends React.Component{
 
     fetchFlights() {
         const {departureAirport, arrivalAirport, departureDate} = this.state;
+        const {auth} = this.props;
 
         if (!departureAirport || !arrivalAirport || !departureDate) {
             return;
         }
 
         const params = {
-            r: 'schedule/search',
             expand: 'transporter',
             departureDate,
             departureAirport,
@@ -42,7 +42,7 @@ class AppContainer extends React.Component{
         };
 
         axios
-            .get('http://127.0.0.1:21080/v1/schedule/search', {params})
+            .get('http://127.0.0.1:21080/v1/schedule/search', {params, auth})
             .then(response => this.setState({errorText: '', results: response.data.searchResults}))
             .catch(err => this.setState({errorText: err.response.data.message, results: []}))
     }
@@ -71,8 +71,14 @@ const airportShape = {
     utc_offset: PropTypes.string.isRequired,
 };
 
+const authShape = {
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+}
+
 AppContainer.propTypes= {
-    airports: PropTypes.arrayOf(PropTypes.shape(airportShape)).isRequired
+    airports: PropTypes.arrayOf(PropTypes.shape(airportShape)).isRequired,
+    auth: PropTypes.shape(authShape).isRequired,
 };
 
 export default AppContainer
