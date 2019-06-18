@@ -1,9 +1,9 @@
 <?php
 
-namespace backend\controllers;
+namespace backend\modules\v1\controllers;
 
 use backend\models\ExtendedFlightSchedule;
-use backend\models\ExtendedFlightScheduleSearch;
+use backend\modules\v1\models\ExtendedFlightScheduleSearch;
 use yii\helpers\VarDumper;
 use yii\rest\IndexAction;
 
@@ -34,8 +34,11 @@ class ScheduleController extends BaseApiController
 
         $searchQuery = \Yii::$app->request->get();
 
-        unset($searchQuery['r']);
-        unset($searchQuery['expand']);
+        foreach ($searchQuery as $key => $value) {
+            if (!property_exists(ExtendedFlightScheduleSearch::class, $key)) {
+                unset($searchQuery[$key]);
+            }
+        }
 
         $finalResult['searchQuery'] = $searchQuery;
 

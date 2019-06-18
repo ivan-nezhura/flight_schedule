@@ -42,7 +42,7 @@ class AppContainer extends React.Component{
         };
 
         axios
-            .get('http://127.0.0.1:21080/index.php?r=flight/search', {params})
+            .get('http://127.0.0.1:21080/v1/schedule/search', {params})
             .then(response => this.setState({errorText: '', results: response.data.searchResults}))
             .catch(err => this.setState({errorText: err.response.data.message, results: []}))
     }

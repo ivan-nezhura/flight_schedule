@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\controllers;
+namespace backend\modules\v1\controllers;
 
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\Cors;

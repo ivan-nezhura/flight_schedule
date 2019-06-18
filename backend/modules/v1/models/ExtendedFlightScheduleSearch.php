@@ -1,12 +1,15 @@
 <?php
 
-namespace backend\models;
+namespace backend\modules\v1\models;
 
 use backend\components\InvalidRequestHttpException;
+use backend\models\ExtendedFlightSchedule;
 use common\models\Airport;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
+use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 
 
 class ExtendedFlightScheduleSearch extends Model
@@ -15,7 +18,6 @@ class ExtendedFlightScheduleSearch extends Model
     public $arrivalAirport;
     public $departureDate;
 
-    const BAD_REQUEST_ERR_MESSAGE = 'bad request';
     const WRONG_AIRPORT_ERR_MESSAGE = 'Wrong airport';
     const WRONG_DATE_ERR_MESSAGE = 'Wrong date';
 
@@ -26,9 +28,15 @@ class ExtendedFlightScheduleSearch extends Model
     {
         return [
             [
-                ['departureAirport', 'departureAirport', 'arrivalAirport'],
+                ['departureAirport', 'arrivalAirport'],
                 'required',
-                'message' => self::BAD_REQUEST_ERR_MESSAGE
+                'message' => self::WRONG_AIRPORT_ERR_MESSAGE
+            ],
+
+            [
+                ['departureDate'],
+                'required',
+                'message' => self::WRONG_DATE_ERR_MESSAGE
             ],
 
             [
@@ -75,7 +83,7 @@ class ExtendedFlightScheduleSearch extends Model
     /**
      * @param $params
      * @return ActiveDataProvider
-     * @throws InvalidRequestHttpException
+     * @throws HttpException
      */
     public function search($params)
     {
@@ -100,8 +108,8 @@ class ExtendedFlightScheduleSearch extends Model
 
         $query->andWhere(new Expression('DATE(`departureDateTime`) = :date', ['date' => $this->departureDate]));
 
-        if ($query->count() === 0) {
-            throw new InvalidRequestHttpException('Empty result');
+        if ((int)$query->count() === 0) {
+            throw new NotFoundHttpException('No flights found');
         }
 
 

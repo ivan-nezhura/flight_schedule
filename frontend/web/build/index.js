@@ -185,7 +185,7 @@ function (_React$Component) {
         departureAirport: departureAirport,
         arrivalAirport: arrivalAirport
       };
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('http://127.0.0.1:21080/index.php?r=flight/search', {
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('http://127.0.0.1:21080/v1/schedule/search', {
         params: params
       }).then(function (response) {
         return _this3.setState({
@@ -71816,7 +71816,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/kepar1k/projects/airtickets/frontend/resources/js/index.js */"./frontend/resources/js/index.js");
+module.exports = __webpack_require__(/*! /home/nezhura/www/flights/frontend/resources/js/index.js */"./frontend/resources/js/index.js");
 
 
 /***/ })

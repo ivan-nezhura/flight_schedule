@@ -11,9 +11,14 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'v1' => [
+            'class' => \backend\modules\v1\Module::class
+        ]
+    ],
     'components' => [
         'request' => [
+            'class' => \backend\components\Request::class,
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
@@ -38,14 +43,14 @@ return [
             'class' => \backend\components\ErrorHandler::class,
         ],
         'urlManager' => [
-//            'enablePrettyUrl' => true,
-//            'enableStrictParsing' => true,
-//            'showScriptName' => false,
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
+            'showScriptName' => false,
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'pluralize' => false,
-                    'controller' => 'schedule',
+                    'controller' => 'v1/schedule',
                     'only' => ['search'],
                     'extraPatterns' => [
                         'GET search' => 'search',
