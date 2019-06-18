@@ -6,6 +6,7 @@ use backend\models\ExtendedFlightSchedule;
 use backend\modules\v1\models\ExtendedFlightScheduleSearch;
 use yii\helpers\VarDumper;
 use yii\rest\IndexAction;
+use yii\rest\OptionsAction;
 
 class ScheduleController extends BaseApiController
 {
@@ -23,6 +24,9 @@ class ScheduleController extends BaseApiController
                     return $extendedFlightScheduleSearch->search(\Yii::$app->request->getQueryParams());
                 }
             ],
+            'options' => [
+                'class' => OptionsAction::class
+            ]
         ];
 
         return $actions;

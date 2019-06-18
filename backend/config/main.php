@@ -51,7 +51,7 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'pluralize' => false,
                     'controller' => 'v1/schedule',
-                    'only' => ['search'],
+                    'only' => ['search', 'options'],
                     'extraPatterns' => [
                         'GET search' => 'search',
                         'OPTIONS search' => 'options',
