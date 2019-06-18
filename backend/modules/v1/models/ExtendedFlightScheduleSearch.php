@@ -89,7 +89,7 @@ class ExtendedFlightScheduleSearch extends Model
     {
         $query = ExtendedFlightSchedule::find();
 
-        $query->orderBy(['arrivalDateTime' => SORT_DESC]);
+        $query->orderBy(['arrivalDateTime' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
