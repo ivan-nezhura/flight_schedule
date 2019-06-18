@@ -33,6 +33,23 @@ class ExtendedFlightSchedule extends \yii\db\ActiveRecord
         ];
     }
 
+    public $dateFormat = 'Y-m-d H:i';
+
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        unset($fields['transporter_code']);
+
+        return array_merge(
+            $fields,
+            [
+                'departureDateTime' => function(){ return date($this->dateFormat, strtotime($this->departureDateTime)); },
+                'arrivalDateTime' => function(){ return date($this->dateFormat, strtotime($this->arrivalDateTime)); }
+            ]
+        );
+    }
+
     public function getTransporter()
     {
         return $this->hasOne(Transporter::class, ['code' => 'transporter_code']);
