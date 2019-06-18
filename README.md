@@ -8,3 +8,6 @@
 
 ###Access project
 [Frontend](http://127.0.0.1:20080) and [API](http://127.0.0.1:21080)
+
+Http auth credentials: username/password
+
